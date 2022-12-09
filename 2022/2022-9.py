@@ -68,7 +68,7 @@ lines_test = file_test.readlines()
 file = open("2022/data/2022-9.txt")
 lines = file.readlines()
 print("PART 1 TEST  : 13 =? {}".format(count_positions(lines_test)))
-print("PART 2 PUZZLE: {}".format(count_positions(lines)))
+print("PART 1 PUZZLE: {}".format(count_positions(lines)))
 
 
 # part 2
