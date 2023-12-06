@@ -53,7 +53,7 @@ Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36;\
 Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11"
 
 test2=""
-file = open("2023-4.txt")
+file = open("2023/data/2023-4.txt")
 lines = file.readlines()
 
 print("TEST1 13   == "+ str(first_problem(test1.split(';'))[0]))

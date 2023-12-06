@@ -80,8 +80,8 @@ def first_problem(lines):
             elif a_range[0] <= conversion_range[0]  and conversion_range[1] <= a_range[1]:
                 return [
                 (in_range[0],conversion_range[0]-in_range[2],in_range[2]),
-                (conversion_range[0]-in_range[2]+1,conversion_range[1]-in_range[2]-1,conversion_range[2]+in_range[2]),
-                (conversion_range[1]-in_range[2],in_range[1],in_range[2])
+                (conversion_range[0]-in_range[2]+1,conversion_range[1]-in_range[2],conversion_range[2]+in_range[2]),
+                (conversion_range[1]-in_range[2]+1,in_range[1],in_range[2])
                 ]
 
             #si c'est a gauche
@@ -99,7 +99,7 @@ def first_problem(lines):
             else:
                 print("panapan")
             
-    #print(precompute_ranges([],tables[0],tables[1:]))
+    print(precompute_ranges([],tables[0],tables[1:]))
     min1=min([from_to(int(seed),tables[0],tables[1:]) for seed in seeds])
     print(min1)
     
@@ -152,7 +152,7 @@ humidity-to-location map:;\
 56 93 4;"
 
 test2=""
-file = open("2023-5.txt")
+file = open("2023/data/2023-5.txt")
 lines = file.readlines()
 
 print("TEST1 35   == "+ str(first_problem(test1.split(';'))[0]))

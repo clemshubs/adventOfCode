@@ -66,7 +66,7 @@ test_bis="\
 *....*;\
 ******"
 test2=""
-file = open("2023-3.txt")
+file = open("2023/data/2023-3.txt")
 lines = file.readlines()
 
 print("TEST1 4361   == "+ str(first_problem(test1.split(';'))[0]))
