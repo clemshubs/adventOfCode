@@ -1,5 +1,5 @@
 import re
-from math import sqrt, trunc
+from math import sqrt, ceil, floor
 
 
 def first_problem(lines):
@@ -27,7 +27,7 @@ def compute_solutions(time, distance):
     x1 = (-b - sqrt(delta))/2*a
     x2 = (-b + sqrt(delta))/2*a
 
-    return trunc(x1) - trunc(x2)
+    return ceil(x1) - floor(x2) -1
 
 
 test1 = "\
@@ -47,5 +47,5 @@ print("TEST1 288 '     = " + str(first_problem(test1.split(';'))[0]))
 print("TEST2 71503     = " + str(first_problem(test1.split(';'))[1]))
 
 
-print("TOTAL1 512295   ="+str(first_problem(lines)[0]))
-print("TOTAL2 36530883 ="+str(first_problem(lines)[1]))
+print("TOTAL1 512295   = "+str(first_problem(lines)[0]))
+print("TOTAL2 36530883 = "+str(first_problem(lines)[1]))
