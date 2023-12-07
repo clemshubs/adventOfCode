@@ -64,8 +64,8 @@ def compare2(hand1,hand2):
     else:
         for i in range(0,5):
             #logique inversée sur mes cartes
-            card1 = cards.index(hand1[i])
-            card2 = cards.index(hand2[i])
+            card1 = cards2.index(hand1[i])
+            card2 = cards2.index(hand2[i])
             if card1 != card2:
                 return card1 > card2
     print("PASNORMAL")
@@ -90,20 +90,22 @@ def first_problem(lines):
    
     
     hands= [ line.strip().split(' ') for line in lines]
-    bubble_sort(hands,compare)
-
     solution1=0
     i=len(hands)
     for hand in bubble_sort(hands,compare):
         solution1+=i*int(hand[1])
         i-=1
-    
+    return solution1 , 0
+def second_problem(lines):
+
+    hands= [ line.strip().split(' ') for line in lines]
+
     solution2=0
     i=len(hands)
     for hand in bubble_sort(hands,compare2):
         solution2+=i*int(hand[1])
         i-=1
-    return solution1, solution2
+    return 0, solution2
 
 def bubble_sort(array, compare):
 
@@ -134,7 +136,25 @@ KTJJT 220;\
 QQQJA 483"
 
 
-test2 = ""
+test2 = "2345A 1;\
+Q2KJJ 13;\
+Q2Q2Q 19;\
+T3T3J 17;\
+T3Q33 11;\
+2345J 3;\
+J345A 2;\
+32T3K 5;\
+T55J5 29;\
+KK677 7;\
+KTJJT 34;\
+QQQJA 31;\
+JJJJJ 37;\
+JAAAA 43;\
+AAAAJ 59;\
+AAAAA 61;\
+2AAAA 23;\
+2JJJJ 53;\
+JJJJ2 41"
 file = open("2023/data/2023-7.txt")
 lines = file.readlines()
 
@@ -147,10 +167,13 @@ print("UTEST nature of QJJQ2=    4 6" + str(identify_nature2("QJJQ2")))
 print("UTEST JKKK2 < QQQQ2 = True " + str(compare2("JKKK2", "QQQQ2")))
 
 res = first_problem(test1.split(';'))
-print("TEST1 6440 '     = " + str(res[0]))
+print("TEST1 6440     = " + str(res[0]))
 
-print("TEST2 5905     = " + str(res[1]))
+print("TEST2 5905     = " + str(second_problem(test1.split(';'))[1]))
+res = first_problem(test2.split(';'))
 
+print("TEST1 bis 6592 "+str(res[0]))
+print("TEST2 bis 6839 "+str(second_problem(test2.split(';'))[1]))
 res = first_problem(lines)
 print("TOTAL1 253603890   = "+str(res[0]))
-print("TOTAL2 FAUX   = "+str(res[1]))
+print("TOTAL2 FAUX   = "+str(second_problem(lines)[1]))
