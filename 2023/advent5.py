@@ -42,11 +42,13 @@ def first_problem(lines):
         # initialiser les ranges avec la premiere table
         if len(ranges)==0:
             for conversion in table["conversions"]:
-                new_ranges.add((conversion[1],conversion[1] + conversion[2]-1,conversion[0]-conversion[1]))
+                new_ranges.add((conversion[1],conversion[1] + conversion[2]-1,conversion[0]-conversion[1],"O"))
         else:
             #je vais les appliquer à mes ranges
             for a_range in ranges:
+
                 for conversion in table["conversions"]:
+                    print((conversion[1],conversion[1] + conversion[2]-1,conversion[0]-conversion[1]))
                     new_ranges.update(apply_conversion_to_range(a_range,conversion))
         print(table["name"]+ "="+ str(len(new_ranges)))
         print(sorted(new_ranges))       
@@ -61,40 +63,38 @@ def first_problem(lines):
         # (conversion[1],conversion[1] + conversion[2],conversion[0]-conversion[1])
         #si on a une intersection        
         conversion_range=(conversion[1],conversion[1] + conversion[2]-1,conversion[0]-conversion[1])
-
         #on applique la transformation courante
         a_range=(in_range[0]+in_range[2],in_range[1]+in_range[2],in_range[2])
 
         # si c'est exclus, on fait rien et on retourne les deux ranges
         if  conversion_range[1] < a_range[0] or a_range[1] < conversion_range[0]:
-            return []
+            return [(conversion_range[0]-in_range[2],conversion_range[1]-in_range[2],conversion_range[2],'E'),in_range]
         
         # sinon, faut faire dékalkul
         else:
             # si c'est inclus
             if conversion_range[0] <= a_range[0] <= conversion_range[1] and conversion_range[0] <= a_range[1] <= conversion_range[1]:
                 return [
-                (in_range[0],in_range[1],conversion_range[2]+in_range[2])
+                (in_range[0],in_range[1],conversion_range[2]+in_range[2],"I")
                 ]
-            #alors c'est compris
-            elif a_range[0] <= conversion_range[0]  and conversion_range[1] <= a_range[1]:
+            #si c'est compris strictement
+            elif a_range[0] < conversion_range[0]  and conversion_range[1] < a_range[1]:
                 return [
-                (in_range[0],conversion_range[0]-in_range[2],in_range[2]),
-                (conversion_range[0]-in_range[2]+1,conversion_range[1]-in_range[2],conversion_range[2]+in_range[2]),
-                (conversion_range[1]-in_range[2]+1,in_range[1],in_range[2])
+                (in_range[0],conversion_range[0]-in_range[2],in_range[2],"C"),
+                (conversion_range[0]-in_range[2]+1,conversion_range[1]-in_range[2],conversion_range[2]+in_range[2],"C"),
+                (conversion_range[1]-in_range[2]+1,in_range[1],in_range[2],"C")
                 ]
-
             #si c'est a gauche
-            elif  a_range[0] <= conversion_range[0]   and conversion_range[0] <= a_range[1] <= conversion_range[1]:
+            elif  a_range[0] <= conversion_range[0]   and conversion_range[0] <= a_range[1] < conversion_range[1]:
                 return [
-                (in_range[0] , conversion_range[0]-in_range[2]-1 , in_range[2]),
-                (conversion_range[0]-in_range[2],in_range[1],in_range[2] + conversion_range[2])
+                (in_range[0] , conversion_range[0]-in_range[2] -1 , in_range[2],"L"),
+                (conversion_range[0]-in_range[2], in_range[1] , in_range[2] + conversion_range[2],"L")
                 ]
             #si c'est a droite
-            elif conversion_range[0] <= a_range[0] <= conversion_range[1]  and conversion_range[1] <= a_range[1]:
+            elif conversion_range[0] < a_range[0] <= conversion_range[1]  and conversion_range[1] <= a_range[1]:
                 return [
-                (in_range[0],conversion_range[1] - in_range[2] , in_range[2] + conversion_range[2]),
-                (conversion_range[1] - in_range[2] +1 , in_range[1], a_range[2] )
+                (in_range[0], conversion_range[1] - in_range[2] , in_range[2] + conversion_range[2],"R"),
+                (conversion_range[1] - in_range[2] +1, in_range[1], a_range[2] ,"R")
                 ]
             else:
                 print("panapan")
@@ -160,4 +160,4 @@ print("TEST2 46   == "+ str(first_problem(test1.split(';'))[1]))
 
 
 print("TOTAL1 313045984   ="+str(first_problem(lines)[0]))
-print("TOTAL2 ??? ="+str(first_problem(lines)[1]))
+#print("TOTAL2 ??? ="+str(first_problem(lines)[1]))
