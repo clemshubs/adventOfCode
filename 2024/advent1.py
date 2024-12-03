@@ -1,5 +1,3 @@
-import math
-
 def make_two_lists(lines):
 # on cree les deux listes
     left=[]
